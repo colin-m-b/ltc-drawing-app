@@ -39,10 +39,12 @@ io.on('connection', function(socket) {
 	})
 
 	socket.on('mousedown', function(data) {
+		console.log('blah')
 		socket.broadcast.emit('mousedown', data)
 	})
 
 	socket.on('mousemove', function(data) {
+		console.log('blee')
 		socket.broadcast.emit('mousemove', data)
 	})
 

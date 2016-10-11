@@ -14,12 +14,17 @@ canvas.addEventListener('mouseup', stopDrawing);
 
 let isDrawing = false;
 socket.on('mousedown', function(data) {
-	console.log(data)
-	startDrawing(data)
+	console.log('blargh')
+	pen.beginPath();
+	pen.moveTo(data.clientX, data.clientY);
 })
+
 socket.on('mousemove', function(data) {
-	drawStuff(data)
+	console.log('blog')
+	pen.lineTo(data.clientX, data.clientY)
+	pen.stroke()
 })
+
 function startDrawing(event) {
 	console.log("START: " + event.clientX + ", " + event.clientY);
 	isDrawing = true;
@@ -34,8 +39,8 @@ function drawStuff(event) {
 	if (isDrawing) {
 		pen.lineTo(event.clientX, event.clientY)
 		pen.stroke()
+		socket.emit('mousemove', {clientX: event.clientX, clientY: event.clientY})
 	}
-	socket.emit('mousemove', {clientX: event.clientX, clientY: event.clientY})
 	// Which canvas drawing functions should go here?? (or none at all?)
 
 }
